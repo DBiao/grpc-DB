@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package proto;
+
+message Study {
+    int32 sid = 1;
+    int32 age = 2;
+    string name = 3;
+    string telephone = 4;
+    string address = 5;
+}
+
+message StudyRequest {
+    int32 sid = 1;
+    string information = 2;
+}
+
+message StudyResponse {
+    int32 sid = 1;
+    string information = 2;
+}
+
+service SelfManage {
+    rpc StudyAdd (Study) returns (StudyResponse) {
+    }; //gRPC简单模式
+    rpc GetHelloTest (stream StudyRequest) returns (StudyResponse) {
+    }; //客户端流模式（客户端发送stream）
+    rpc GetNxinMethod (StudyRequest) returns (stream StudyResponse) {
+    }; //服务端流模式（从服务端返回stream）
+    rpc GetStudy (stream StudyRequest) returns (stream StudyResponse) {
+    }; //双向流模式
+}
